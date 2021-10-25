@@ -1,0 +1,184 @@
+:root {
+  --clr-main: rgb(255, 255, 255);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: linear-gradient(
+    45deg,
+    hsla(221, 45%, 73%, 1) 0%,
+    hsla(220, 78%, 29%, 1) 100%
+  );
+  user-select: none;
+  overflow: hidden;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transform: translateX(5000px);
+  transition: 0.5s ease;
+}
+
+.player-one-form {
+  transition: 0.5s ease;
+  z-index: 1;
+  transform: translateX(250px);
+  margin-bottom: 10em;
+}
+
+.player-two-form {
+  transition: 0.5s ease;
+  transform: translateX(5000px);
+  margin-bottom: 10em;
+}
+
+.intro-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.intro-wrapper h1 {
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 0.5em;
+  color: var(--clr-main);
+  font-weight: 700;
+  text-align: center;
+}
+
+.intro-wrapper input {
+  font-size: 3em;
+  background: transparent;
+  border: 2px solid var(--clr-main);
+  padding: 0.25em;
+  text-align: center;
+  width: 500px;
+  color: var(--clr-main);
+}
+
+.intro-wrapper input:focus {
+  outline: none;
+}
+
+.turn-display {
+  margin-bottom: 0.5em;
+  font-size: 4em;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  color: var(--clr-main);
+}
+
+.gameboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 500px;
+  min-height: 500px;
+  background-color: rgba(0, 0, 0, 0.205);
+}
+
+.row {
+  display: flex;
+  border: 2px solid var(--clr-main);
+  height: 33.33333333333%;
+}
+
+.row .btn {
+  width: 33.333333333333333%;
+  border: none;
+  cursor: pointer;
+  font-size: 8em;
+  color: var(--clr-main);
+  font-weight: 100;
+  font-family: "Raleway", sans-serif;
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+  z-index: 5;
+}
+
+.row .btn:hover {
+  background-color: rgba(255, 255, 255, 0.233);
+}
+
+.row .btn:nth-of-type(1) {
+  border-right: 2px solid var(--clr-main);
+}
+
+.row .btn:nth-of-type(2) {
+  border-right: 2px solid var(--clr-main);
+}
+
+.row:nth-of-type(1) {
+  border-bottom: none;
+}
+
+.row:nth-of-type(2) {
+  border-bottom: none;
+}
+
+.reset-btn {
+  margin-top: 1em;
+  padding: 1rem 4rem;
+  background: transparent;
+  border: 2px solid var(--clr-main);
+  cursor: pointer;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5em;
+  color: var(--clr-main);
+  transition: background-color 0.5s ease;
+}
+
+.reset-btn:hover {
+  background-color: rgba(255, 255, 255, 0.233);
+}
+
+@media (max-width: 540px) {
+  .intro-wrapper input {
+    font-size: 3em;
+    width: 350px;
+  }
+
+  .turn-display {
+    font-size: 2em;
+    text-align: center;
+  }
+
+  .gameboard {
+    width: 250px;
+    min-height: 250px;
+  }
+
+  .row .btn {
+    font-size: 4em;
+  }
+
+  .reset-btn {
+    font-size: 0.75em;
+    padding: 1em 2em;
+    margin-top: 2em;
+  }
+}
+
+.gone {
+  display: none;
+}
