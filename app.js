@@ -109,6 +109,7 @@ function reset() {
   gameOver = false;
   resetbtn.style.backgroundColor = "transparent";
   console.clear();
+  stop();
 }
 
 // Function for win condition, this will run everytime we click a button
@@ -246,16 +247,31 @@ function winCheck() {
   }
 }
 
+const start = () => {
+  setTimeout(function () {
+    confetti.start();
+  }, 0); // 1000 is time that after 1 second start the confetti ( 1000 = 1 sec)
+};
+
+const stop = () => {
+  setTimeout(function () {
+    confetti.stop();
+  }, 0); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
+};
+
+// if you dont want to make it stop and make it infinite you can just remove the stop function 😊
 function xWon() {
   // How to access playerOne if it's in another function?
   // Can't access variable playerOne. Need to understand scope, I dont get it.
   h1.innerHTML = `${playerOne} WINS!!`;
   gameOver = true;
   resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+  start();
 }
 
 function oWon(playerTwo) {
   h1.innerHTML = `${playerTwo} WINS!!`;
   gameOver = true;
   resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+  start();
 }
