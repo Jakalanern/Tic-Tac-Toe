@@ -18,43 +18,36 @@ i = 0;
 gameOver = false;
 game.style.display = "none";
 //Variables
-playerOneForm.addEventListener(
-  "submit",
-  function (e) {
-    // Code
-    e.preventDefault();
-    h1.innerHTML = `${playerOneName.value}'s Turn`;
-    // Fade out and in
-    playerOneForm.style.opacity = "0";
-    playerTwoForm.style.opacity = "1";
-    playerTwoForm.style.zIndex = "2";
-    //Transition (Slide Left)
-    // playerOneForm.style.transform = "translateX(-3000px)";
-    // playerTwoForm.style.transform = "translateX(-250px)";
-  },
-  { once: true }
-);
+playerOneForm.addEventListener("submit", function (e) {
+  // Code
+  e.preventDefault();
+  h1.innerHTML = `${playerOneName.value}'s Turn`;
+  // Fade out and in
+  playerOneForm.style.opacity = "0";
+  playerTwoForm.style.opacity = "1";
+  playerTwoForm.style.zIndex = "2";
+  this.disabled = "true";
+  //Transition (Slide Left)
+  // playerOneForm.style.transform = "translateX(-3000px)";
+  // playerTwoForm.style.transform = "translateX(-250px)";
+});
 
-playerTwoForm.addEventListener(
-  "submit",
-  function (e) {
-    //Code
-    e.preventDefault();
+playerTwoForm.addEventListener("submit", function (e) {
+  //Code
+  e.preventDefault();
 
-    //Fade out
-    playerTwoForm.style.opacity = "0";
-    game.style.display = "flex";
-    setTimeout(function () {
-      introWrapper.style.display = "none";
-      game.style.opacity = "1";
-    }, 500);
+  //Fade out
+  playerTwoForm.style.opacity = "0";
+  game.style.display = "flex";
+  setTimeout(function () {
+    introWrapper.style.display = "none";
+    game.style.opacity = "1";
+  }, 500);
 
-    //Transition (Slide Left)
-    // playerTwoForm.style.transform = "translateX(-3000px)";
-    // game.style.transform = "translate(0px, -1300px)";
-  },
-  { once: true }
-);
+  //Transition (Slide Left)
+  // playerTwoForm.style.transform = "translateX(-3000px)";
+  // game.style.transform = "translate(0px, -1300px)";
+});
 
 //If player name is null set it to a default name. E.g: (Player One / Player Two)
 
