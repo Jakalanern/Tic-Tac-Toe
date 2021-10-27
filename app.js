@@ -12,11 +12,24 @@ let playerTwoForm = document.querySelector(".player-two-form");
 let playerOneName = document.querySelector(".player-one-name");
 let playerTwoName = document.querySelector(".player-two-name");
 let introWrapper = document.querySelector(".intro-wrapper");
+let playerOneScoreName = document.querySelector(".player-one-score");
+let playerTwoScoreName = document.querySelector(".player-two-score");
+let playerOneScore = document.querySelector(".score1");
+let playerTwoScore = document.querySelector(".score2");
 // ********************
 // Assign number to each button
 i = 0;
+draw = false;
+click = false;
 gameOver = false;
 game.style.display = "none";
+// game.style.display = "flex";
+// game.style.opacity = "1";
+// introWrapper.style.display = "none";
+p1score = 0;
+p2score = 0;
+playerOneScore.innerHTML = p1score;
+playerTwoScore.innerHTML = p2score;
 //Variables
 playerOneForm.addEventListener("submit", function a(e) {
   // Code
@@ -46,6 +59,14 @@ playerTwoForm.addEventListener("submit", function (e) {
   //Transition (Slide Left)
   // playerTwoForm.style.transform = "translateX(-3000px)";
   // game.style.transform = "translate(0px, -1300px)";
+  playerOne = playerOneName.value;
+  playerTwo = playerTwoName.value;
+  nameOne = playerOneName.value;
+  nameTwo = playerTwoName.value;
+  playerOneScoreName.innerHTML = `${nameOne}: ${playerOneScore.innerHTML}`;
+  playerTwoScoreName.innerHTML = `${nameTwo}: ${playerOneScore.innerHTML}`;
+  playerOneScoreName.style.fontWeight = 300;
+  playerTwoScoreName.style.fontWeight = 300;
 });
 
 //If player name is null set it to a default name. E.g: (Player One / Player Two)
@@ -57,6 +78,7 @@ let x = true;
 //We want an event listener on all buttons
 for (let b of btn) {
   b.addEventListener("click", function () {
+    click = true;
     if (!gameOver) {
       turnCount(count);
       if (x === true && b.id !== "clicked") {
@@ -74,23 +96,27 @@ for (let b of btn) {
 }
 
 resetbtn.addEventListener("click", function () {
-  reset();
+  if (click === true) {
+    reset();
+  }
 });
 
 // FUNCTIONS ***
 function turnDisplay() {
-  playerOne = playerOneName.value;
-  playerTwo = playerTwoName.value;
   if (!playerOne) {
     playerOne = "Player One";
   }
   if (!playerTwo) {
     playerTwo = "Player Two";
   }
-  if (x === false) {
+  if (x === false && swap === false) {
     h1.innerHTML = `${playerOne}'s Turn`;
-  } else if (x === true) {
+  } else if (x === false && swap === true) {
     h1.innerHTML = `${playerTwo}'s Turn`;
+  } else if (x === true && swap === false) {
+    h1.innerHTML = `${playerTwo}'s Turn`;
+  } else if (x === true && swap === true) {
+    h1.innerHTML = `${playerOne}'s Turn`;
   }
   winCheck();
   drawCheck();
@@ -110,14 +136,33 @@ function turnCount() {
 }
 
 // Resets everything back to original state
+resetCount = 1;
+swap = false;
 function reset() {
+  resetCount++;
+  if (draw === false) {
+    if (resetCount % 2 === 0) {
+      swap = true;
+    } else {
+      swap = false;
+    }
+  } else {
+    draw = false;
+  }
+
   count = 1;
   x = false;
-  h1.innerHTML = `${playerOne}'s Turn`;
+  click = false;
+  if (swap === false) {
+    h1.innerHTML = `${playerOne}'s Turn`;
+  } else {
+    h1.innerHTML = `${playerTwo}'s Turn`;
+  }
   btn.forEach((b) => ((b.innerHTML = ""), (b.id = "")));
   gameOver = false;
   resetbtn.style.backgroundColor = "transparent";
   console.clear();
+  console.log(swap);
   stop();
 }
 
@@ -133,12 +178,16 @@ function winCheck() {
       btn[1].innerHTML === btn[2].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[0].innerHTML === "X") {
+      if (btn[0].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[0].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[0].innerHTML === "O") {
+      else if (btn[0].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[0].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -149,12 +198,16 @@ function winCheck() {
       btn[4].innerHTML === btn[5].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[3].innerHTML === "X") {
+      if (btn[3].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[3].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[3].innerHTML === "O") {
+      else if (btn[3].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[3].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -165,12 +218,16 @@ function winCheck() {
       btn[7].innerHTML === btn[8].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[6].innerHTML === "X") {
+      if (btn[6].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[6].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[6].innerHTML === "O") {
+      else if (btn[6].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[6].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -181,12 +238,16 @@ function winCheck() {
       btn[3].innerHTML === btn[6].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[0].innerHTML === "X") {
+      if (btn[0].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[0].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[0].innerHTML === "O") {
+      else if (btn[0].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[0].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -197,12 +258,16 @@ function winCheck() {
       btn[4].innerHTML === btn[7].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[1].innerHTML === "X") {
+      if (btn[1].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[1].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[1].innerHTML === "O") {
+      else if (btn[1].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[1].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -213,12 +278,16 @@ function winCheck() {
       btn[5].innerHTML === btn[8].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[2].innerHTML === "X") {
+      if (btn[2].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[2].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[2].innerHTML === "O") {
+      else if (btn[2].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[2].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -229,12 +298,16 @@ function winCheck() {
       btn[4].innerHTML === btn[8].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[0].innerHTML === "X") {
+      if (btn[0].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[0].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[0].innerHTML === "O") {
+      else if (btn[0].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[0].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -245,12 +318,16 @@ function winCheck() {
       btn[4].innerHTML === btn[6].innerHTML
     ) {
       // If it was X, X WON
-      if (btn[2].innerHTML === "X") {
+      if (btn[2].innerHTML === "X" && swap === false) {
         xWon(playerOne);
+      } else if (btn[2].innerHTML === "X" && swap === true) {
+        oWon(playerOne);
       }
       // If it was O, O WON
-      else if (btn[2].innerHTML === "O") {
+      else if (btn[2].innerHTML === "O" && swap === false) {
         oWon(playerTwo);
+      } else if (btn[2].innerHTML === "O" && swap === true) {
+        xWon(playerOne);
       }
     }
   }
@@ -266,6 +343,8 @@ function drawCheck() {
     }
   }
   if (num === 9 && gameOver === false) {
+    draw = true;
+    console.log(`Draw is ${draw}`);
     gameOver = true;
     h1.innerHTML = `DRAW!`;
     resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
@@ -289,15 +368,23 @@ function stop() {
 function xWon() {
   // How to access playerOne if it's in another function?
   // Can't access variable playerOne. Need to understand scope, I dont get it.
-  h1.innerHTML = `${playerOne} WINS!!`;
+  h1.innerHTML = `${playerOne.toUpperCase()} WINS!`;
+
   gameOver = true;
+  p1score++;
+  playerOneScore.innerHTML = p1score;
+  playerOneScoreName.innerHTML = `${nameOne}: ${playerOneScore.innerHTML}`;
   resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   start();
 }
 
-function oWon(playerTwo) {
-  h1.innerHTML = `${playerTwo} WINS!!`;
+function oWon() {
+  h1.innerHTML = `${playerTwo.toUpperCase()} WINS!`;
+
   gameOver = true;
+  p2score++;
+  playerTwoScore.innerHTML = p2score;
+  playerTwoScoreName.innerHTML = `${nameTwo}: ${playerTwoScore.innerHTML}`;
   resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   start();
 }
