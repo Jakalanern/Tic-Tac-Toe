@@ -24,9 +24,9 @@ playerOneForm.addEventListener("submit", function (e) {
   h1.innerHTML = `${playerOneName.value}'s Turn`;
   // Fade out and in
   playerOneForm.style.opacity = "0";
+  playerOneForm.removeEventListener("submit", function (e) {});
   playerTwoForm.style.opacity = "1";
   playerTwoForm.style.zIndex = "2";
-  this.disabled = "true";
   //Transition (Slide Left)
   // playerOneForm.style.transform = "translateX(-3000px)";
   // playerTwoForm.style.transform = "translateX(-250px)";
