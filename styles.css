@@ -43,7 +43,7 @@ body {
 .player-two-form {
   opacity: 0;
   transition: 0.5s ease;
-  transform: translateY(-136px);
+  transform: translateY(-68px);
 }
 
 .intro-wrapper {
@@ -154,6 +154,10 @@ body {
 @media (max-width: 540px) {
   .player-one-form {
     margin-top: 4em;
+  }
+
+  .player-two-form {
+    transform: translateY(-35px);
   }
 
   .intro-wrapper input {
