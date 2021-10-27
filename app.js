@@ -26,7 +26,7 @@ playerOneForm.addEventListener("submit", function (e) {
   playerOneForm.style.opacity = "0";
   playerTwoForm.style.opacity = "1";
   playerTwoForm.style.zIndex = "2";
-
+  playerOneForm.disabled = "true";
   //Transition (Slide Left)
   // playerOneForm.style.transform = "translateX(-3000px)";
   // playerTwoForm.style.transform = "translateX(-250px)";
