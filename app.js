@@ -18,13 +18,12 @@ i = 0;
 gameOver = false;
 game.style.display = "none";
 //Variables
-playerOneForm.addEventListener("submit", function (e) {
+playerOneForm.addEventListener("submit", function a(e) {
   // Code
   e.preventDefault();
   h1.innerHTML = `${playerOneName.value}'s Turn`;
   // Fade out and in
-  playerOneForm.style.opacity = "0";
-  playerOneForm.removeEventListener("submit", function (e) {});
+  playerOneForm.style.display = "none";
   playerTwoForm.style.opacity = "1";
   playerTwoForm.style.zIndex = "2";
   //Transition (Slide Left)
