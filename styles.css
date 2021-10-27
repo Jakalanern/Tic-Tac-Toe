@@ -93,6 +93,7 @@ body {
   width: 500px;
   min-height: 500px;
   background-color: rgba(0, 0, 0, 0.205);
+  transition: opacity 4s;
 }
 
 .row {
@@ -151,19 +152,24 @@ body {
 }
 
 @media (max-width: 540px) {
+  .player-one-form {
+    margin-top: 4em;
+  }
+
   .intro-wrapper input {
     font-size: 3em;
     width: 300px;
   }
 
   .turn-display {
-    font-size: 2em;
+    font-size: 2.75em;
     text-align: center;
+    font-weight: 500;
   }
 
   .gameboard {
-    width: 250px;
-    min-height: 250px;
+    width: 300px;
+    min-height: 300px;
   }
 
   .row .btn {
