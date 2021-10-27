@@ -25,34 +25,33 @@ body {
 }
 
 .game-wrapper {
+  opacity: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  transform: translate(3000px, -1300px);
   transition: 0.5s ease;
 }
 
 .player-one-form {
   transition: 0.5s ease;
   z-index: 1;
-  transform: translateX(250px);
-  margin-bottom: 10em;
 }
 
 .player-two-form {
+  opacity: 0;
   transition: 0.5s ease;
-  transform: translateX(3000px);
   margin-bottom: 10em;
+  transform: translateY(-136px);
 }
 
 .intro-wrapper {
-  height: 100%;
   width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   user-select: none;
@@ -68,7 +67,7 @@ body {
 
 .intro-wrapper input {
   font-size: 3em;
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.205);
   border: 2px solid var(--clr-main);
   padding: 0.25em;
   text-align: center;
@@ -139,7 +138,7 @@ body {
 .reset-btn {
   margin-top: 1em;
   padding: 1rem 4rem;
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.205);
   border: 2px solid var(--clr-main);
   cursor: pointer;
   font-family: "Raleway", sans-serif;
@@ -149,13 +148,17 @@ body {
 }
 
 .reset-btn:hover {
-  background-color: rgba(255, 255, 255, 0.233);
+  background-color: rgba(255, 255, 255, 0.13);
 }
 
 @media (max-width: 540px) {
   .intro-wrapper input {
     font-size: 3em;
-    width: 350px;
+    width: 300px;
+  }
+
+  .player-two-form {
+    margin-left: 5em;
   }
 
   .turn-display {

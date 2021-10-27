@@ -16,28 +16,37 @@ let introWrapper = document.querySelector(".intro-wrapper");
 // Assign number to each button
 i = 0;
 gameOver = false;
+game.style.display = "none";
 //Variables
 playerOneForm.addEventListener("submit", function (e) {
   // Code
   e.preventDefault();
   h1.innerHTML = `${playerOneName.value}'s Turn`;
-  //Fade out and in
-  //   playerOneForm.style.opacity = "0";
-  //   playerTwoForm.style.opacity = "1";
-  //   playerTwoForm.style.zIndex = "2";
+  // Fade out and in
+  playerOneForm.style.opacity = "0";
+  playerTwoForm.style.opacity = "1";
+  playerTwoForm.style.zIndex = "2";
 
   //Transition (Slide Left)
-  playerOneForm.style.transform = "translateX(-3000px)";
-  playerTwoForm.style.transform = "translateX(-250px)";
+  // playerOneForm.style.transform = "translateX(-3000px)";
+  // playerTwoForm.style.transform = "translateX(-250px)";
 });
 
 playerTwoForm.addEventListener("submit", function (e) {
   //Code
   e.preventDefault();
 
+  //Fade out
+  playerTwoForm.style.opacity = "0";
+  game.style.display = "flex";
+  setTimeout(function () {
+    introWrapper.style.display = "none";
+    game.style.opacity = "1";
+  }, 500);
+
   //Transition (Slide Left)
-  playerTwoForm.style.transform = "translateX(-3000px)";
-  game.style.transform = "translate(0px, -1300px)";
+  // playerTwoForm.style.transform = "translateX(-3000px)";
+  // game.style.transform = "translate(0px, -1300px)";
 });
 
 //If player name is null set it to a default name. E.g: (Player One / Player Two)
@@ -85,6 +94,7 @@ function turnDisplay() {
     h1.innerHTML = `${playerTwo}'s Turn`;
   }
   winCheck();
+  drawCheck();
 }
 
 // When it's even, it's player 1's turn. When it's odd, its' player 2's turn
@@ -247,17 +257,35 @@ function winCheck() {
   }
 }
 
-const start = () => {
+function drawCheck() {
+  // If ALL btn's have ID of CLICKED and gameWon is FALSE then it must be a DRAW
+  // So every time we click a btn lets check all the buttons to see if they all have id===clicked
+  num = 0;
+  for (i = 0; i < btn.length; i++) {
+    if (btn[i].id === "clicked") {
+      num++;
+    }
+  }
+  console.log(num);
+  if (num === 9 && gameOver === false) {
+    gameOver = true;
+    h1.innerHTML = `DRAW!`;
+    resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+  }
+}
+
+// Confetti functions
+function start() {
   setTimeout(function () {
     confetti.start();
   }, 0); // 1000 is time that after 1 second start the confetti ( 1000 = 1 sec)
-};
+}
 
-const stop = () => {
+function stop() {
   setTimeout(function () {
     confetti.stop();
   }, 0); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
-};
+}
 
 // if you dont want to make it stop and make it infinite you can just remove the stop function 😊
 function xWon() {
