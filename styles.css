@@ -43,7 +43,6 @@ body {
 .player-two-form {
   opacity: 0;
   transition: 0.5s ease;
-  margin-bottom: 10em;
   transform: translateY(-136px);
 }
 
@@ -155,10 +154,6 @@ body {
   .intro-wrapper input {
     font-size: 3em;
     width: 300px;
-  }
-
-  .player-two-form {
-    margin-left: 5em;
   }
 
   .turn-display {
