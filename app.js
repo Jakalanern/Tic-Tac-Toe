@@ -78,9 +78,11 @@ function playSubmitSound() {
   submitSound.play();
 }
 function playDrawSound() {
-  drawSound.load();
-  drawSound.volume = volume;
-  drawSound.play();
+  if (soundsEnabled) {
+    drawSound.load();
+    drawSound.volume = volume;
+    drawSound.play();
+  }
 }
 // **************
 
