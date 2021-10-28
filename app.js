@@ -60,6 +60,7 @@ function playClickSounds() {
       }
     } else {
       clickSound3.load();
+      clickSound3.volume = volume * 1.25;
       clickSound3.play();
     }
   }
