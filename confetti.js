@@ -16,7 +16,6 @@ var confetti = {
 };
 
 (function () {
-  console.log("CONFETTI");
   confetti.start = startConfetti;
   confetti.stop = stopConfetti;
   confetti.toggle = toggleConfetti;
