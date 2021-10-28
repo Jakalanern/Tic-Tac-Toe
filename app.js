@@ -44,6 +44,7 @@ clickSound2 = new Audio("./sounds/pop.mp3");
 clickSound3 = new Audio("./sounds/bloop1.wav");
 submitSound = new Audio("./sounds/submitSound.wav");
 winSound = new Audio("./sounds/win-sound.wav");
+drawSound = new Audio("./sounds/lose2.wav");
 function playClickSounds() {
   if (soundsEnabled) {
     clickCount++;
@@ -74,6 +75,11 @@ function playSubmitSound() {
   submitSound.load();
   submitSound.volume = volume;
   submitSound.play();
+}
+function playDrawSound() {
+  drawSound.load();
+  drawSound.volume = volume;
+  drawSound.play();
 }
 // **************
 
@@ -233,14 +239,10 @@ function reset() {
   resetbtn.style.hover;
   clickCount = 1;
   resetCount++;
-  if (draw === false) {
-    if (resetCount % 2 === 0) {
-      swap = true;
-    } else {
-      swap = false;
-    }
+  if (resetCount % 2 === 0) {
+    swap = true;
   } else {
-    draw = false;
+    swap = false;
   }
 
   count = 1;
@@ -253,9 +255,9 @@ function reset() {
   }
   btn.forEach((b) => ((b.innerHTML = ""), (b.id = "")));
   gameOver = false;
+  draw = false;
   resetbtn.style.backgroundColor = "transparent";
   console.clear();
-  console.log(swap);
   stop();
 }
 
@@ -440,7 +442,8 @@ function drawCheck() {
     console.log(`Draw is ${draw}`);
     gameOver = true;
     h1.innerHTML = `DRAW!`;
-    resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    playDrawSound();
+    resetButtonAnim();
   }
 }
 
