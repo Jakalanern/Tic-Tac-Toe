@@ -16,24 +16,92 @@ let playerOneScoreName = document.querySelector(".player-one-score");
 let playerTwoScoreName = document.querySelector(".player-two-score");
 let playerOneScore = document.querySelector(".score1");
 let playerTwoScore = document.querySelector(".score2");
+let scoreBox = document.querySelector(".score-wrapper");
+let resetGameBtn = document.querySelector(".reset-game-btn");
+let volumebtn = document.querySelector(".volume-btn");
+let soundsOnAlert = document.querySelector(".sounds-on");
+let soundsOffAlert = document.querySelector(".sounds-off");
 // ********************
-// Assign number to each button
+//Variables and Stuffs
 i = 0;
 draw = false;
 click = false;
 gameOver = false;
 game.style.display = "none";
-// game.style.display = "flex";
-// game.style.opacity = "1";
-// introWrapper.style.display = "none";
 p1score = 0;
 p2score = 0;
 playerOneScore.innerHTML = p1score;
 playerTwoScore.innerHTML = p2score;
-//Variables
+soundsEnabled = true;
+clickCount = 1;
+resetbtn.innerHTML = "Clear";
+volumeCount = 1;
+//******************
+// Audio
+volume = 0.15;
+clickSound1 = new Audio("./sounds/bloop3.wav");
+clickSound2 = new Audio("./sounds/pop.mp3");
+clickSound3 = new Audio("./sounds/bloop1.wav");
+submitSound = new Audio("./sounds/submitSound.wav");
+winSound = new Audio("./sounds/win-sound.wav");
+function playClickSounds() {
+  if (soundsEnabled) {
+    clickCount++;
+    if (!gameOver) {
+      if (clickCount % 2 === 0) {
+        clickSound1.load();
+        clickSound1.volume = volume;
+        clickSound1.play();
+      } else {
+        clickSound2.load();
+        clickSound2.volume = volume * 1.5;
+        clickSound2.play();
+      }
+    } else {
+      clickSound3.load();
+      clickSound3.play();
+    }
+  }
+}
+function playWinSound() {
+  if (soundsEnabled) {
+    winSound.load();
+    winSound.volume = volume;
+    winSound.play();
+  }
+}
+function playSubmitSound() {
+  submitSound.load();
+  submitSound.volume = volume;
+  submitSound.play();
+}
+// **************
+
+volumebtn.addEventListener("click", function () {
+  volumeCount++;
+  if (volumeCount % 2 === 0) {
+    soundsEnabled = false;
+    volume = 0;
+    volumebtn.style.backgroundImage = "url(./icons/mute.png)";
+    soundsOffAlert.style.opacity = ".5";
+    setTimeout(function () {
+      soundsOffAlert.style.opacity = "0";
+    }, 1000);
+  } else {
+    soundsEnabled = true;
+    volume = 0.15;
+    volumebtn.style.backgroundImage = "url(./icons/volume.png)";
+    soundsOnAlert.style.opacity = ".5";
+    setTimeout(function () {
+      soundsOnAlert.style.opacity = "0";
+    }, 1000);
+  }
+});
+
 playerOneForm.addEventListener("submit", function a(e) {
   // Code
   e.preventDefault();
+  playSubmitSound();
   h1.innerHTML = `${playerOneName.value}'s Turn`;
   // Fade out and in
   playerOneForm.style.display = "none";
@@ -47,6 +115,7 @@ playerOneForm.addEventListener("submit", function a(e) {
 playerTwoForm.addEventListener("submit", function (e) {
   //Code
   e.preventDefault();
+  playSubmitSound();
 
   //Fade out
   playerTwoForm.style.opacity = "0";
@@ -69,15 +138,19 @@ playerTwoForm.addEventListener("submit", function (e) {
   playerTwoScoreName.style.fontWeight = 300;
 });
 
+resetGameBtn.addEventListener("click", function () {
+  refreshPage();
+});
 //If player name is null set it to a default name. E.g: (Player One / Player Two)
 
 // Everytime we click we are going to change turn from P1 to P2 for example
 // So set a turncount to 0
 let count = 1;
-let x = true;
+x = true;
 //We want an event listener on all buttons
 for (let b of btn) {
   b.addEventListener("click", function () {
+    playClickSounds();
     click = true;
     if (!gameOver) {
       turnCount(count);
@@ -91,6 +164,22 @@ for (let b of btn) {
         turnDisplay();
       }
     } else {
+    }
+  });
+  b.addEventListener("mouseover", function () {
+    if (b.id !== "clicked" && count % 2 === 1 && !gameOver) {
+      b.style.color = "hsla(0, 0%, 100%, 0.3)";
+      b.innerHTML = "X";
+    } else if (b.id !== "clicked" && count % 2 === 0 && !gameOver) {
+      b.style.color = "hsla(0, 0%, 100%, 0.3)";
+      b.innerHTML = "O";
+    }
+  });
+
+  b.addEventListener("mouseout", function () {
+    b.style.color = "white";
+    if (b.id !== "clicked" && !gameOver) {
+      b.innerHTML = "";
     }
   });
 }
@@ -139,6 +228,10 @@ function turnCount() {
 resetCount = 1;
 swap = false;
 function reset() {
+  resetbtn.innerHTML = "Clear";
+  resetbtn.style.boxShadow = "none";
+  resetbtn.style.hover;
+  clickCount = 1;
   resetCount++;
   if (draw === false) {
     if (resetCount % 2 === 0) {
@@ -364,27 +457,97 @@ function stop() {
   }, 0); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
 }
 
+function refreshPage() {
+  window.location.reload();
+}
+
 // if you dont want to make it stop and make it infinite you can just remove the stop function 😊
 function xWon() {
   // How to access playerOne if it's in another function?
   // Can't access variable playerOne. Need to understand scope, I dont get it.
   h1.innerHTML = `${playerOne.toUpperCase()} WINS!`;
-
+  xwon = true;
+  owon = false;
   gameOver = true;
   p1score++;
   playerOneScore.innerHTML = p1score;
   playerOneScoreName.innerHTML = `${nameOne}: ${playerOneScore.innerHTML}`;
-  resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   start();
+  scoreAnim();
+  playWinSound();
+  resetButtonAnim();
 }
 
 function oWon() {
   h1.innerHTML = `${playerTwo.toUpperCase()} WINS!`;
-
+  owon = true;
+  xwon = false;
   gameOver = true;
   p2score++;
   playerTwoScore.innerHTML = p2score;
   playerTwoScoreName.innerHTML = `${nameTwo}: ${playerTwoScore.innerHTML}`;
-  resetbtn.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   start();
+  scoreAnim();
+  playWinSound();
+  resetButtonAnim();
+}
+
+function scoreAnim() {
+  scoreBox.style.transition = "box-shadow 1s";
+  scoreBox.style.boxShadow = "0px 0px 75px white";
+  playerTwoScoreName.style.transition = "color 1s";
+  if (owon === true) {
+    playerTwoScoreName.style.color = "rgb(133, 250, 133)";
+  } else if (xwon === true) {
+    playerOneScoreName.style.color = "rgb(133, 250, 133)";
+  }
+
+  setTimeout(function () {
+    scoreBox.style.boxShadow = "none";
+    playerOneScoreName.style.color = "var(--clr-main)";
+    playerTwoScoreName.style.color = "var(--clr-main)";
+  }, 1500);
+}
+
+function resetButtonAnim() {
+  resetbtn.innerHTML = "Go Again";
+  let setSpeed = 500;
+  let timer = {
+    one: setSpeed,
+    two: setSpeed * 2,
+    three: setSpeed * 3,
+    four: setSpeed * 4,
+    five: setSpeed * 5,
+    six: setSpeed * 6,
+    seven: setSpeed * 7,
+    eight: setSpeed * 8,
+    nine: setSpeed * 9,
+    ten: setSpeed * 10,
+    eleven: setSpeed * 11,
+    twelve: setSpeed * 12,
+    thirteen: setSpeed * 13,
+    fourteen: setSpeed * 14,
+    fifteen: setSpeed * 15,
+  };
+  console.log("Reset btn anim");
+  resetbtn.style.transition = "box-shadow 1s";
+  resetbtn.style.boxShadow = "0px 0px 40px white";
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "none";
+  }, timer.one);
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "0px 0px 40px white";
+  }, timer.two);
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "none";
+  }, timer.three);
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "0px 0px 40px white";
+  }, timer.four);
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "none";
+  }, timer.five);
+  setTimeout(function () {
+    resetbtn.style.boxShadow = "0px 0px 25px hsla(0, 0%, 100%, 0.5)";
+  }, timer.six);
 }
