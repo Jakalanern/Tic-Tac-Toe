@@ -73,9 +73,11 @@ function playWinSound() {
   }
 }
 function playSubmitSound() {
-  submitSound.load();
-  submitSound.volume = volume;
-  submitSound.play();
+  if (soundsEnabled) {
+    submitSound.load();
+    submitSound.volume = volume;
+    submitSound.play();
+  }
 }
 function playDrawSound() {
   if (soundsEnabled) {
