@@ -118,6 +118,7 @@ playerOneForm.addEventListener("submit", function a(e) {
   playerOneForm.style.display = "none";
   playerTwoForm.style.opacity = "1";
   playerTwoForm.style.zIndex = "2";
+  playerTwoName.focus();
   //Transition (Slide Left)
   // playerOneForm.style.transform = "translateX(-3000px)";
   // playerTwoForm.style.transform = "translateX(-250px)";
