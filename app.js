@@ -109,6 +109,8 @@ volumebtn.addEventListener("click", function () {
   }
 });
 
+playerOneName.focus();
+
 playerOneForm.addEventListener("submit", function a(e) {
   // Code
   e.preventDefault();
