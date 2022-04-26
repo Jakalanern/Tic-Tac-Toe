@@ -8,7 +8,8 @@ Fully Vanilla JS |
 Animations |
 Event Listeners |
 Score Logic |
-Turn Logic
+Turn Logic |
+Etc
 
 
 https://jakalanern.github.io/Tic-Tac-Toe/
